@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SoftMart – Online Software Marketplace</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Soft<span>Mart</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Software</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+        <a href="cart.html" class="btn btn-outline-primary cart-badge position-relative">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge bg-danger rounded-pill cart-count" style="display:none"></span>
+        </a>
+        <a href="login.html" class="btn btn-outline-secondary btn-sm nav-login-btn">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm nav-signup-btn">Sign Up</a>
+        <!-- Shown when logged in -->
+        <div class="nav-user-menu d-flex align-items-center gap-2" style="display:none!important">
+          <div class="dropdown">
+            <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700" class="nav-user-avatar">J</div>
+              <span class="nav-user-name">User</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="buyer-dashboard.html"><i class="fas fa-tachometer-alt me-2 text-primary"></i>My Dashboard</a></li>
+              <li><a class="dropdown-item" href="buyer-dashboard.html#profile"><i class="fas fa-user-circle me-2 text-primary"></i>My Profile</a></li>
+              <li><a class="dropdown-item" href="cart.html"><i class="fas fa-shopping-cart me-2 text-primary"></i>My Cart</a></li>
+              <li class="nav-vendor-link" style="display:none"><hr class="dropdown-divider"></li>
+              <li class="nav-vendor-link" style="display:none"><a class="dropdown-item" href="vendor-dashboard.html"><i class="fas fa-store me-2 text-success"></i>Vendor Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section position-relative">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-badge"><i class="fas fa-bolt me-1"></i>Trusted by 500,000+ users</div>
+        <h1 class="mb-4">Buy Software<br><span style="color:#bfdbfe">Easily & Securely</span></h1>
+        <p class="mb-5">Discover, compare, and purchase premium software solutions. From antivirus to AI tools — find everything you need in one place.</p>
+        <div class="hero-search mb-4">
+          <i class="fas fa-search text-muted me-2"></i>
+          <input type="text" id="heroSearch" placeholder="Search for software, categories..." />
+          <button class="btn btn-primary btn-pulse" onclick="location.href='products.html?q='+document.getElementById('heroSearch').value">Search</button>
+        </div>
+        <div class="d-flex flex-wrap gap-3">
+          <span style="color:rgba(255,255,255,0.8);font-size:.9rem"><i class="fas fa-shield-alt me-1"></i>Secure Checkout</span>
+          <span style="color:rgba(255,255,255,0.8);font-size:.9rem"><i class="fas fa-undo me-1"></i>30-Day Refund</span>
+          <span style="color:rgba(255,255,255,0.8);font-size:.9rem"><i class="fas fa-headset me-1"></i>24/7 Support</span>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        <div style="font-size:10rem;animation:fadeInUp 1s ease">🛒</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="py-4 border-bottom">
+  <div class="container">
+    <div class="row text-center g-3">
+      <div class="col-6 col-md-3"><div class="fw-800 fs-3 text-primary">10K+</div><div class="text-muted small">Software Products</div></div>
+      <div class="col-6 col-md-3"><div class="fw-800 fs-3 text-primary">500K+</div><div class="text-muted small">Happy Customers</div></div>
+      <div class="col-6 col-md-3"><div class="fw-800 fs-3 text-primary">1K+</div><div class="text-muted small">Verified Vendors</div></div>
+      <div class="col-6 col-md-3"><div class="fw-800 fs-3 text-primary">99.9%</div><div class="text-muted small">Uptime Guarantee</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Software -->
+<section>
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="text-primary fw-600 mb-2"><i class="fas fa-star me-1"></i>FEATURED</div>
+      <h2 class="section-title">Featured Software</h2>
+      <p class="section-sub">Hand-picked top-rated software across all categories</p>
+    </div>
+    <div class="row g-4" id="featuredCards"></div>
+    <div class="text-center mt-5">
+      <a href="products.html" class="btn btn-outline-primary btn-lg">View All Software <i class="fas fa-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section-alt">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="text-primary fw-600 mb-2"><i class="fas fa-th-large me-1"></i>CATEGORIES</div>
+      <h2 class="section-title">Browse by Category</h2>
+      <p class="section-sub">Explore software across popular categories</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">🛡️</span><h5>Antivirus</h5><p>25 products</p></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">🎨</span><h5>Design</h5><p>40 products</p></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">⚙️</span><h5>Dev Tools</h5><p>60 products</p></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">📊</span><h5>Office</h5><p>35 products</p></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">🤖</span><h5>AI Tools</h5><p>50 products</p></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="categories.html" class="cat-card"><span class="cat-icon">⚡</span><h5>Utility</h5><p>45 products</p></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose SoftMart -->
+<section>
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="text-primary fw-600 mb-2"><i class="fas fa-award me-1"></i>WHY US</div>
+      <h2 class="section-title">Why Choose SoftMart?</h2>
+      <p class="section-sub">We make software purchasing safe, easy and affordable</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-shield-alt"></i></div><h5 class="fw-700">Verified & Secure</h5><p class="text-muted">All software is scanned for malware and verified by our security team before listing.</p></div>
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-tags"></i></div><h5 class="fw-700">Best Prices</h5><p class="text-muted">We guarantee the best prices with regular deals, discounts and bundle offers.</p></div>
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-download"></i></div><h5 class="fw-700">Instant Download</h5><p class="text-muted">Get immediate access to your software after purchase with license key delivery.</p></div>
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-headset"></i></div><h5 class="fw-700">24/7 Support</h5><p class="text-muted">Our dedicated support team is available around the clock to help you.</p></div>
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-undo"></i></div><h5 class="fw-700">30-Day Refund</h5><p class="text-muted">Not satisfied? Get a full refund within 30 days — no questions asked.</p></div>
+      <div class="col-md-4"><div class="feature-icon-box"><i class="fas fa-star"></i></div><h5 class="fw-700">Trusted Reviews</h5><p class="text-muted">Genuine reviews from verified buyers to help you make the right choice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="section-alt">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="text-primary fw-600 mb-2"><i class="fas fa-comments me-1"></i>TESTIMONIALS</div>
+      <h2 class="section-title">What Customers Say</h2>
+      <p class="section-sub">Real reviews from real customers</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="review-card"><div class="stars mb-2">★★★★★</div><p class="mb-3">"SoftMart has the best deals I've ever seen. Got DevKit Pro for half price and it's amazing!"</p><div class="d-flex align-items-center gap-3"><div class="reviewer-avatar">A</div><div><div class="fw-700">Alex Johnson</div><div class="text-muted small">Software Developer</div></div></div></div></div>
+      <div class="col-md-4"><div class="review-card"><div class="stars mb-2">★★★★★</div><p class="mb-3">"Quick delivery, genuine license keys, and great customer support. Highly recommend SoftMart!"</p><div class="d-flex align-items-center gap-3"><div class="reviewer-avatar">S</div><div><div class="fw-700">Sarah Miller</div><div class="text-muted small">Graphic Designer</div></div></div></div></div>
+      <div class="col-md-4"><div class="review-card"><div class="stars mb-2">★★★★☆</div><p class="mb-3">"The variety of software available is incredible. Found everything I needed for my business in one place."</p><div class="d-flex align-items-center gap-3"><div class="reviewer-avatar">R</div><div><div class="fw-700">Robert Chen</div><div class="text-muted small">Business Owner</div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section style="background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;padding:60px 0">
+  <div class="container text-center">
+    <h2 class="fw-800 mb-3">Ready to Find Your Perfect Software?</h2>
+    <p class="fs-5 mb-4" style="opacity:.9">Join 500,000+ users who trust SoftMart for their software needs.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="products.html" class="btn btn-light btn-lg fw-700 text-primary">Browse Software</a>
+      <a href="register.html" class="btn btn-outline-light btn-lg fw-700">Create Free Account</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand">Soft<span style="color:#60a5fa">Mart</span></div>
+        <p class="mb-3">Your trusted online software marketplace. Buy, download and activate premium software safely.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-muted fs-5"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2"><h5>Products</h5><a href="products.html">All Software</a><a href="categories.html">Categories</a><a href="#">New Arrivals</a><a href="#">Deals</a></div>
+      <div class="col-6 col-lg-2"><h5>Company</h5><a href="#">About Us</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Press</a></div>
+      <div class="col-6 col-lg-2"><h5>Support</h5><a href="#">Help Center</a><a href="#">Contact Us</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a></div>
+      <div class="col-6 col-lg-2"><h5>Sell</h5><a href="vendor-dashboard.html">Become a Vendor</a><a href="#">Vendor Guide</a><a href="#">Pricing Plans</a></div>
+    </div>
+    <hr class="footer-divider">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>© 2025 SoftMart. All rights reserved.</span>
+      <div class="d-flex gap-2 flex-wrap">
+        <img src="https://img.shields.io/badge/Visa-1A1F71?style=flat&logo=visa&logoColor=white" alt="Visa" height="24">
+        <img src="https://img.shields.io/badge/Mastercard-EB001B?style=flat&logo=mastercard&logoColor=white" alt="MC" height="24">
+        <img src="https://img.shields.io/badge/PayPal-003087?style=flat&logo=paypal&logoColor=white" alt="PayPal" height="24">
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+function logout() {
+  localStorage.removeItem('sm_user');
+  showToast('👋 Logged out successfully!', 'info');
+  setTimeout(() => { location.href = 'index.html'; }, 1000);
+}
+// Update avatar initial from user name
+document.addEventListener('DOMContentLoaded', () => {
+  const u = localStorage.getItem('sm_user');
+  if (u) {
+    const name = JSON.parse(u).name;
+    document.querySelectorAll('.nav-user-avatar').forEach(el => el.textContent = name[0].toUpperCase());
+  }
+});
+</script>
+</body>
+</html>

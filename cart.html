@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cart – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Soft<span>Mart</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Software</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+        <a href="cart.html" class="btn btn-outline-primary cart-badge position-relative">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge bg-danger rounded-pill cart-count" style="display:none"></span>
+        </a>
+        <a href="login.html" class="btn btn-outline-secondary btn-sm nav-login-btn">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm nav-signup-btn">Sign Up</a>
+        <div class="nav-user-menu d-flex align-items-center gap-2" style="display:none!important">
+          <div class="dropdown">
+            <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700" class="nav-user-avatar">U</div>
+              <span class="nav-user-name">User</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="buyer-dashboard.html"><i class="fas fa-tachometer-alt me-2 text-primary"></i>My Dashboard</a></li>
+              <li><a class="dropdown-item" href="cart.html"><i class="fas fa-shopping-cart me-2 text-primary"></i>My Cart</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb-section">
+  <div class="container">
+    <nav><ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Shopping Cart</li>
+    </ol></nav>
+  </div>
+</div>
+
+<section class="section-alt">
+  <div class="container">
+    <h3 class="fw-800 mb-4"><i class="fas fa-shopping-cart me-2 text-primary"></i>Shopping Cart</h3>
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div id="cartItems"></div>
+      </div>
+      <div class="col-lg-4">
+        <div id="cartSummary"></div>
+        <!-- Promo Code -->
+        <div class="mt-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Promo code...">
+            <button class="btn btn-outline-primary" onclick="showToast('Promo code applied!','success')">Apply</button>
+          </div>
+        </div>
+        <!-- Trust badges -->
+        <div class="mt-4 d-flex flex-column gap-2">
+          <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-lock text-primary"></i>Secure SSL Checkout</div>
+          <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-undo text-primary"></i>30-Day Money Back Guarantee</div>
+          <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-headset text-primary"></i>24/7 Customer Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+function logout(){localStorage.removeItem('sm_user');location.href='index.html';}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!localStorage.getItem('sm_user')){ localStorage.setItem('sm_login_redirect','cart.html'); location.href='login.html'; return; }
+  const u=localStorage.getItem('sm_user');
+  if(u){const name=JSON.parse(u).name;document.querySelectorAll('.nav-user-avatar').forEach(el=>el.textContent=name[0].toUpperCase());}
+});
+</script>
+</body>
+</html>

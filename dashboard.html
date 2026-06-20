@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Dashboard – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">Soft<span style="color:#60a5fa">Mart</span></div>
+  <nav class="sidebar-nav mt-3">
+    <a href="dashboard.html" class="active"><i class="fas fa-home"></i>Dashboard</a>
+    <a href="#purchases"><i class="fas fa-box-open"></i>My Software</a>
+    <a href="#orders"><i class="fas fa-receipt"></i>Order History</a>
+    <a href="#licenses"><i class="fas fa-key"></i>License Keys</a>
+    <a href="#profile"><i class="fas fa-user-circle"></i>Profile</a>
+    <a href="#settings"><i class="fas fa-cog"></i>Settings</a>
+    <hr style="border-color:#1e293b;margin:12px 24px">
+    <a href="products.html"><i class="fas fa-store"></i>Browse Store</a>
+    <a href="login.html" class="text-danger-soft"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- Top bar -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-sm btn-outline-secondary d-md-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <div>
+        <h4 class="fw-800 mb-0">My Dashboard</h4>
+        <p class="text-muted small mb-0">Welcome back, <strong>John Doe</strong> 👋</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="products.html" class="btn btn-primary btn-sm"><i class="fas fa-plus me-1"></i>Buy More</a>
+      <div class="reviewer-avatar" style="width:40px;height:40px;cursor:pointer">J</div>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="fas fa-box-open"></i></div>
+          <span class="badge bg-success-subtle text-success small">+2 new</span>
+        </div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Purchased Software</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="stat-icon" style="background:#f0fdf4;color:#22c55e"><i class="fas fa-key"></i></div>
+          <span class="badge bg-primary-subtle text-primary small">Active</span>
+        </div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Active Licenses</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="stat-icon" style="background:#fef9c3;color:#ca8a04"><i class="fas fa-receipt"></i></div>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="stat-icon" style="background:#fdf2f8;color:#a855f7"><i class="fas fa-dollar-sign"></i></div>
+        </div>
+        <div class="stat-value">$284</div>
+        <div class="stat-label">Total Spent</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Purchased Software -->
+    <div class="col-lg-8">
+      <div class="dash-card" id="purchases">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-box-open me-2 text-primary"></i>My Purchased Software</span>
+          <a href="products.html" class="btn btn-sm btn-outline-primary">Browse More</a>
+        </div>
+        <div class="p-3">
+          <div id="purchasedList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="col-lg-4">
+      <div class="dash-card mb-4" id="profile">
+        <div class="dash-card-header"><i class="fas fa-user-circle me-2 text-primary"></i>My Profile</div>
+        <div class="p-4 text-center">
+          <div class="reviewer-avatar mx-auto mb-3" style="width:72px;height:72px;font-size:1.8rem">J</div>
+          <h5 class="fw-700 mb-1">John Doe</h5>
+          <p class="text-muted small mb-3">john.doe@example.com</p>
+          <span class="badge bg-primary mb-3">Pro Member</span>
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+              <i class="fas fa-edit me-1"></i>Edit Profile
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" onclick="showToast('Password reset email sent!','success')">
+              <i class="fas fa-lock me-1"></i>Change Password
+            </button>
+          </div>
+        </div>
+        <div class="p-3 border-top">
+          <div class="d-flex justify-content-between small text-muted mb-1"><span>Member since</span><span class="fw-600 text-dark">Jan 2024</span></div>
+          <div class="d-flex justify-content-between small text-muted"><span>Account status</span><span class="badge bg-success">Verified</span></div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="dash-card">
+        <div class="dash-card-header"><i class="fas fa-bolt me-2 text-primary"></i>Quick Actions</div>
+        <div class="p-3 d-grid gap-2">
+          <a href="products.html" class="btn btn-sm btn-outline-primary text-start"><i class="fas fa-store me-2"></i>Browse Software</a>
+          <a href="cart.html" class="btn btn-sm btn-outline-primary text-start"><i class="fas fa-shopping-cart me-2"></i>View Cart</a>
+          <button class="btn btn-sm btn-outline-secondary text-start" onclick="showToast('Support ticket created!','success')"><i class="fas fa-headset me-2"></i>Contact Support</button>
+          <button class="btn btn-sm btn-outline-secondary text-start" onclick="showToast('Invoice downloaded!','success')"><i class="fas fa-file-pdf me-2"></i>Download Invoices</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order History -->
+    <div class="col-12">
+      <div class="dash-card" id="orders">
+        <div class="dash-card-header"><i class="fas fa-receipt me-2 text-primary"></i>Order History</div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead style="background:#f8faff">
+              <tr><th>Order ID</th><th>Software</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="orderTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-700">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-6"><label class="form-label fw-600">First Name</label><input type="text" class="form-control" value="John"></div>
+          <div class="col-6"><label class="form-label fw-600">Last Name</label><input type="text" class="form-control" value="Doe"></div>
+          <div class="col-12"><label class="form-label fw-600">Email</label><input type="email" class="form-control" value="john.doe@example.com"></div>
+          <div class="col-12"><label class="form-label fw-600">Phone</label><input type="tel" class="form-control" placeholder="+1 234 567 8900"></div>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal" onclick="showToast('Profile updated!','success')">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+const purchased = [
+  { id:1, icon:'🛡️', name:'SecureShield Pro', cat:'Antivirus', price:29.99, key:'SSH-PRO-8X2K-4M9Z', date:'2025-01-15', expires:'2026-01-15' },
+  { id:3, icon:'⚙️', name:'DevKit Pro', cat:'Developer Tools', price:49.99, key:'DKP-9A3F-7B1C-2E5D', date:'2025-02-20', expires:'2026-02-20' },
+  { id:5, icon:'🤖', name:'AIWriter X', cat:'AI Tools', price:19.99, key:'AIW-5Z9K-3R7P-1L4Q', date:'2025-03-10', expires:'2026-03-10' },
+  { id:6, icon:'⚡', name:'CleanBoost Ultra', cat:'Utility', price:14.99, key:'CBU-2M6X-8N1V-5T3W', date:'2025-04-05', expires:'2026-04-05' },
+];
+
+const orders = [
+  { id:'#SM-10041', software:'SecureShield Pro', date:'Jan 15, 2025', amount:'$29.99', status:'Completed' },
+  { id:'#SM-10038', software:'DevKit Pro', date:'Feb 20, 2025', amount:'$49.99', status:'Completed' },
+  { id:'#SM-10055', software:'AIWriter X', date:'Mar 10, 2025', amount:'$19.99', status:'Completed' },
+  { id:'#SM-10061', software:'CleanBoost Ultra', date:'Apr 5, 2025', amount:'$14.99', status:'Completed' },
+  { id:'#SM-10072', software:'VaultPass', date:'Apr 20, 2025', amount:'$9.99', status:'Pending' },
+];
+
+document.getElementById('purchasedList').innerHTML = purchased.map(p => `
+  <div class="d-flex align-items-center gap-3 p-3 rounded-3 mb-2 hover-row" style="border:1px solid #e2e8f0">
+    <div style="font-size:2rem;width:52px;height:52px;background:#eff6ff;border-radius:10px;display:flex;align-items:center;justify-content:center">${p.icon}</div>
+    <div class="flex-grow-1">
+      <div class="fw-700">${p.name}</div>
+      <span class="badge" style="background:#eff6ff;color:#3b82f6;font-size:.72rem">${p.cat}</span>
+      <div id="licenses">
+        <div class="license-key mt-1" id="key-${p.id}">${p.key}</div>
+      </div>
+      <div class="text-muted small mt-1">Expires: ${p.expires}</div>
+    </div>
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-sm btn-primary" onclick="showToast('⬇️ Download started!','success')"><i class="fas fa-download me-1"></i>Download</button>
+      <button class="btn btn-sm btn-outline-secondary" onclick="copyKey('${p.key}')"><i class="fas fa-copy me-1"></i>Copy Key</button>
+    </div>
+  </div>`).join('');
+
+document.getElementById('orderTable').innerHTML = orders.map(o => `
+  <tr>
+    <td class="fw-600 text-primary">${o.id}</td>
+    <td>${o.software}</td>
+    <td class="text-muted">${o.date}</td>
+    <td class="fw-700">${o.amount}</td>
+    <td><span class="badge ${o.status==='Completed'?'bg-success':'bg-warning text-dark'}">${o.status}</span></td>
+    <td><button class="btn btn-sm btn-outline-primary" onclick="showToast('Invoice downloaded!','info')"><i class="fas fa-file-pdf me-1"></i>Invoice</button></td>
+  </tr>`).join('');
+
+function copyKey(key) {
+  navigator.clipboard.writeText(key).then(() => showToast('✅ License key copied!','success'));
+}
+</script>
+</body>
+</html>

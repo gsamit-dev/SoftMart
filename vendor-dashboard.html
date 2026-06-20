@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vendor Dashboard – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .vendor-sidebar .sidebar-nav a.active { border-left-color:#06b6d4; }
+  .revenue-bar { height:32px;background:linear-gradient(90deg,#3b82f6,#06b6d4);border-radius:6px;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:.8rem;font-weight:600;transition:width .8s ease; }
+  .upload-drop input[type=file] { display:none; }
+  .icon-picker span { font-size:1.8rem;cursor:pointer;padding:6px;border-radius:8px;border:2px solid transparent;transition:all .2s; }
+  .icon-picker span.selected, .icon-picker span:hover { border-color:var(--primary);background:#eff6ff; }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar vendor-sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <i class="fas fa-store me-2" style="color:#06b6d4"></i>Vendor Panel
+  </div>
+  <nav class="sidebar-nav mt-3">
+    <a href="vendor-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+    <a href="#upload"><i class="fas fa-upload"></i>Upload Software</a>
+    <a href="#software"><i class="fas fa-box"></i>My Software</a>
+    <a href="#sales"><i class="fas fa-chart-line"></i>Sales Report</a>
+    <a href="#earnings"><i class="fas fa-wallet"></i>Earnings</a>
+    <a href="#reviews"><i class="fas fa-star"></i>Reviews</a>
+    <hr style="border-color:#1e293b;margin:12px 24px">
+    <a href="products.html"><i class="fas fa-store"></i>View Store</a>
+    <a href="#" onclick="logout()" style="color:#ef4444"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- Top Bar -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-sm btn-outline-secondary d-md-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <div>
+        <h4 class="fw-800 mb-0">Vendor Dashboard</h4>
+        <p class="text-muted small mb-0">Hello, <strong>CreativeEdge Studio</strong> 👋</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-plus me-1"></i>Upload Software
+      </button>
+      <div class="reviewer-avatar" style="width:40px;height:40px;background:linear-gradient(135deg,#06b6d4,#3b82f6);cursor:pointer;font-size:.9rem">V</div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="fas fa-box"></i></div>
+          <span style="color:#22c55e;font-size:.8rem"><i class="fas fa-arrow-up me-1"></i>+2 this month</span>
+        </div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Published Software</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#f0fdf4;color:#22c55e"><i class="fas fa-shopping-bag"></i></div>
+          <span style="color:#22c55e;font-size:.8rem"><i class="fas fa-arrow-up me-1"></i>+18%</span>
+        </div>
+        <div class="stat-value">342</div>
+        <div class="stat-label">Total Sales</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#fef9c3;color:#ca8a04"><i class="fas fa-dollar-sign"></i></div>
+          <span style="color:#22c55e;font-size:.8rem"><i class="fas fa-arrow-up me-1"></i>+24%</span>
+        </div>
+        <div class="stat-value">$8,430</div>
+        <div class="stat-label">Total Revenue</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#fdf2f8;color:#a855f7"><i class="fas fa-star"></i></div>
+        </div>
+        <div class="stat-value">4.8</div>
+        <div class="stat-label">Avg. Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <!-- Monthly Revenue Bars -->
+    <div class="col-lg-7" id="sales">
+      <div class="dash-card">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-chart-bar me-2 text-primary"></i>Monthly Sales Report</span>
+          <select class="form-select form-select-sm" style="width:120px" onchange="showToast('Report updated','info')">
+            <option>2025</option><option>2024</option>
+          </select>
+        </div>
+        <div class="p-4" id="revenueChart"></div>
+      </div>
+    </div>
+
+    <!-- Earnings Breakdown -->
+    <div class="col-lg-5" id="earnings">
+      <div class="dash-card h-100">
+        <div class="dash-card-header"><i class="fas fa-wallet me-2 text-primary"></i>Earnings Breakdown</div>
+        <div class="p-4">
+          <div class="text-center mb-4">
+            <div class="fw-800" style="font-size:2.4rem;color:var(--primary)">$8,430</div>
+            <div class="text-muted small">Total Lifetime Earnings</div>
+          </div>
+          <div class="d-flex justify-content-between mb-2"><span class="text-muted small">Gross Revenue</span><span class="fw-600">$10,537</span></div>
+          <div class="d-flex justify-content-between mb-2"><span class="text-muted small">Platform Fee (20%)</span><span class="fw-600 text-danger">-$2,107</span></div>
+          <div class="d-flex justify-content-between mb-3"><span class="text-muted small">Net Earnings</span><span class="fw-600 text-success">$8,430</span></div>
+          <hr>
+          <div class="d-flex justify-content-between mb-2"><span class="text-muted small">Available for Payout</span><span class="fw-600 text-primary">$2,340</span></div>
+          <div class="d-flex justify-content-between mb-4"><span class="text-muted small">Pending Clearance</span><span class="fw-600 text-warning">$480</span></div>
+          <button class="btn btn-primary w-100" onclick="showToast('Payout request submitted!','success')">
+            <i class="fas fa-money-bill-wave me-2"></i>Request Payout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Software Management Table -->
+  <div class="dash-card mb-4" id="software">
+    <div class="dash-card-header d-flex justify-content-between align-items-center">
+      <span><i class="fas fa-box me-2 text-primary"></i>My Software</span>
+      <div class="d-flex gap-2">
+        <input type="text" class="form-control form-control-sm" placeholder="Search..." style="width:160px" id="vendorSearch">
+        <button class="btn btn-sm btn-primary" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})"><i class="fas fa-plus me-1"></i>Add New</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead style="background:#f8faff">
+          <tr><th>Software</th><th>Category</th><th>Price</th><th>Sales</th><th>Revenue</th><th>Rating</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="vendorSoftwareTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Upload Software Form -->
+  <div class="dash-card" id="upload">
+    <div class="dash-card-header"><i class="fas fa-upload me-2 text-primary"></i>Upload New Software</div>
+    <div class="p-4">
+      <form class="needs-validate" novalidate onsubmit="handleUpload(event)">
+        <div class="row g-4">
+          <!-- Left -->
+          <div class="col-lg-8">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-600">Software Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="e.g. DesignFlow Pro 2.0" required>
+                <div class="invalid-feedback">Software name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Category <span class="text-danger">*</span></label>
+                <select class="form-select" required>
+                  <option value="">Select category...</option>
+                  <option>Antivirus</option><option>Design</option><option>Developer Tools</option>
+                  <option>Office</option><option>AI Tools</option><option>Utility</option>
+                </select>
+                <div class="invalid-feedback">Please select a category.</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-600">Price ($) <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" placeholder="29.99" min="0.99" step="0.01" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-600">Original Price ($)</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" placeholder="49.99" min="0.99" step="0.01">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-600">Version <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="e.g. 2.4.1" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-600">Short Description <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="One-line description (max 120 chars)" maxlength="120" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-600">Full Description <span class="text-danger">*</span></label>
+                <textarea class="form-control" rows="4" placeholder="Describe your software in detail..." required></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-600">Key Features <span class="text-danger">*</span></label>
+                <textarea class="form-control" rows="3" placeholder="List key features, one per line..." required></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">License Type</label>
+                <select class="form-select">
+                  <option>1-Year License</option>
+                  <option>Lifetime License</option>
+                  <option>Monthly Subscription</option>
+                  <option>Free + Premium</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Supported OS</label>
+                <div class="d-flex flex-wrap gap-3 mt-2">
+                  <div class="form-check"><input class="form-check-input" type="checkbox" id="win" checked><label class="form-check-label" for="win">Windows</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" id="mac"><label class="form-check-label" for="mac">macOS</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" id="linux"><label class="form-check-label" for="linux">Linux</label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div class="col-lg-4">
+            <label class="form-label fw-600">Software Icon</label>
+            <div class="icon-picker d-flex flex-wrap gap-2 mb-3 p-3 border rounded-3" id="iconPicker">
+              🛡️🎨⚙️📊🤖⚡🔐🌐🖼️💡🔄📽️📝🗂️🔒
+            </div>
+            <div class="mb-3">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <label class="form-label fw-600 mb-0">Selected Icon:</label>
+                <span id="selectedIcon" style="font-size:1.8rem">🛡️</span>
+              </div>
+            </div>
+
+            <label class="form-label fw-600">Upload Software File</label>
+            <div class="upload-drop" onclick="this.querySelector('input').click()">
+              <i class="fas fa-cloud-upload-alt fa-2x text-primary mb-2"></i>
+              <p class="mb-1 fw-600">Click to upload</p>
+              <p class="text-muted small mb-0">ZIP, EXE, DMG up to 500MB</p>
+              <input type="file" accept=".zip,.exe,.dmg">
+            </div>
+
+            <label class="form-label fw-600 mt-3">Screenshots</label>
+            <div class="upload-drop" onclick="this.querySelector('input').click()">
+              <i class="fas fa-images fa-2x text-muted mb-2"></i>
+              <p class="mb-1 fw-600">Upload Screenshots</p>
+              <p class="text-muted small mb-0">PNG, JPG up to 5MB each</p>
+              <input type="file" accept="image/*" multiple>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="d-flex gap-3 flex-wrap">
+              <button type="submit" class="btn btn-primary btn-lg btn-pulse">
+                <i class="fas fa-upload me-2"></i>Publish Software
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-lg" onclick="showToast('Saved as draft','info')">
+                <i class="fas fa-save me-2"></i>Save as Draft
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+function logout() {
+  localStorage.removeItem('sm_user');
+  showToast('👋 Logged out successfully!', 'info');
+  setTimeout(() => { location.href = 'index.html'; }, 1000);
+}
+const vendorSoftware = [
+  { icon:'🎨', name:'DesignFlow Studio', cat:'Design', price:'$59.99', sales:198, revenue:'$11,880', rating:4.7, status:'Active' },
+  { icon:'🖼️', name:'PhotoEdit Master', cat:'Design', price:'$44.99', sales:87, revenue:'$3,915', rating:4.6, status:'Active' },
+  { icon:'📽️', name:'SlideGenius', cat:'Office', price:'$24.99', sales:57, revenue:'$1,425', rating:4.5, status:'Active' },
+  { icon:'🎯', name:'ColorPicker Pro', cat:'Design', price:'$14.99', sales:0, revenue:'$0', rating:0, status:'Pending Review' },
+];
+
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const revenues = [420, 580, 690, 750, 920, 1100, 980, 1240, 1050, 1380, 1250, 960];
+const maxRev = Math.max(...revenues);
+
+document.getElementById('revenueChart').innerHTML = months.map((m,i) => `
+  <div class="d-flex align-items-center gap-3 mb-2">
+    <span style="width:28px;font-size:.8rem;color:#64748b">${m}</span>
+    <div class="revenue-bar" style="width:${(revenues[i]/maxRev*100)}%">$${revenues[i]}</div>
+  </div>`).join('');
+
+document.getElementById('vendorSoftwareTable').innerHTML = vendorSoftware.map(s => `
+  <tr>
+    <td>
+      <div class="d-flex align-items-center gap-2">
+        <span style="font-size:1.4rem">${s.icon}</span>
+        <span class="fw-600">${s.name}</span>
+      </div>
+    </td>
+    <td><span class="badge" style="background:#eff6ff;color:#3b82f6">${s.cat}</span></td>
+    <td class="fw-700">${s.price}</td>
+    <td>${s.sales}</td>
+    <td class="fw-700 text-success">${s.revenue}</td>
+    <td>${s.rating ? `<span class="stars">${'★'.repeat(Math.floor(s.rating))}</span> ${s.rating}` : '<span class="text-muted small">No reviews</span>'}</td>
+    <td><span class="badge ${s.status==='Active'?'bg-success':'bg-warning text-dark'}">${s.status}</span></td>
+    <td>
+      <button class="btn btn-xs btn-sm btn-outline-primary py-0 px-2 me-1" onclick="showToast('Edit form opened','info')"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-xs btn-sm btn-outline-danger py-0 px-2" onclick="showToast('Software removed','error')"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>`).join('');
+
+// Icon picker
+const iconPicker = document.getElementById('iconPicker');
+iconPicker.innerHTML = iconPicker.textContent.trim().split('').filter(c=>c.trim()).map(icon =>
+  `<span title="${icon}" onclick="document.getElementById('selectedIcon').textContent=this.textContent;document.querySelectorAll('.icon-picker span').forEach(s=>s.classList.remove('selected'));this.classList.add('selected')">${icon}</span>`
+).join('');
+iconPicker.querySelector('span')?.classList.add('selected');
+
+// Vendor search
+document.getElementById('vendorSearch').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#vendorSoftwareTable tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+
+function handleUpload(e) {
+  e.preventDefault();
+  if (!e.target.checkValidity()) { e.target.classList.add('was-validated'); return; }
+  showToast('🚀 Software submitted for review!', 'success');
+  e.target.reset();
+  e.target.classList.remove('was-validated');
+}
+</script>
+</body>
+</html>

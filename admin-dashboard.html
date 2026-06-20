@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Dashboard – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .sidebar-badge { background:#ef4444;color:#fff;border-radius:20px;font-size:.7rem;padding:1px 7px;margin-left:auto; }
+  .trend-up { color:#22c55e;font-size:.8rem; }
+  .trend-down { color:#ef4444;font-size:.8rem; }
+  .admin-sidebar { background:#0f172a; }
+  .admin-sidebar .sidebar-nav a.active { border-left-color:#f59e0b; }
+  .status-dot { width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px; }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar admin-sidebar" id="sidebar">
+  <div class="sidebar-brand" style="font-size:1.2rem">
+    <i class="fas fa-shield-alt me-2" style="color:#f59e0b"></i>Admin Panel
+  </div>
+  <nav class="sidebar-nav mt-3">
+    <a href="admin-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+    <a href="#users"><i class="fas fa-users"></i>Users <span class="sidebar-badge">2.1k</span></a>
+    <a href="#software"><i class="fas fa-box"></i>Software <span class="sidebar-badge">248</span></a>
+    <a href="#orders"><i class="fas fa-shopping-cart"></i>Orders <span class="sidebar-badge">12</span></a>
+    <a href="#vendors"><i class="fas fa-store"></i>Vendors</a>
+    <a href="#reviews"><i class="fas fa-star"></i>Reviews</a>
+    <a href="#reports"><i class="fas fa-chart-bar"></i>Reports</a>
+    <hr style="border-color:#1e293b;margin:12px 24px">
+    <a href="#settings"><i class="fas fa-cog"></i>Settings</a>
+    <a href="index.html"><i class="fas fa-home"></i>View Site</a>
+    <a href="login.html" style="color:#ef4444"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
+</aside>
+
+<!-- Main -->
+<div class="main-content">
+
+  <!-- Top Bar -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-sm btn-outline-secondary d-md-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <div>
+        <h4 class="fw-800 mb-0">Admin Dashboard</h4>
+        <p class="text-muted small mb-0">SoftMart control panel — <span style="color:#22c55e">● All systems normal</span></p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+      <button class="btn btn-sm btn-outline-secondary position-relative" onclick="showToast('3 new notifications','info')">
+        <i class="fas fa-bell"></i>
+        <span class="badge bg-danger rounded-pill" style="position:absolute;top:-4px;right:-4px;font-size:.6rem">3</span>
+      </button>
+      <div class="reviewer-avatar" style="width:40px;height:40px;background:linear-gradient(135deg,#f59e0b,#ef4444);cursor:pointer;font-size:.9rem">A</div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="fas fa-users"></i></div>
+          <span class="trend-up"><i class="fas fa-arrow-up me-1"></i>+12%</span>
+        </div>
+        <div class="stat-value">2,148</div>
+        <div class="stat-label">Total Users</div>
+        <div class="mt-2" style="height:4px;background:#e2e8f0;border-radius:2px"><div style="width:72%;height:100%;background:#3b82f6;border-radius:2px"></div></div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#f0fdf4;color:#22c55e"><i class="fas fa-box"></i></div>
+          <span class="trend-up"><i class="fas fa-arrow-up me-1"></i>+5%</span>
+        </div>
+        <div class="stat-value">248</div>
+        <div class="stat-label">Total Software</div>
+        <div class="mt-2" style="height:4px;background:#e2e8f0;border-radius:2px"><div style="width:55%;height:100%;background:#22c55e;border-radius:2px"></div></div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#fef9c3;color:#ca8a04"><i class="fas fa-dollar-sign"></i></div>
+          <span class="trend-up"><i class="fas fa-arrow-up me-1"></i>+28%</span>
+        </div>
+        <div class="stat-value">$48.2K</div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="mt-2" style="height:4px;background:#e2e8f0;border-radius:2px"><div style="width:85%;height:100%;background:#ca8a04;border-radius:2px"></div></div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex align-items-start justify-content-between mb-3">
+          <div class="stat-icon" style="background:#fdf2f8;color:#a855f7"><i class="fas fa-shopping-bag"></i></div>
+          <span class="trend-down"><i class="fas fa-arrow-down me-1"></i>-3%</span>
+        </div>
+        <div class="stat-value">1,394</div>
+        <div class="stat-label">Total Orders</div>
+        <div class="mt-2" style="height:4px;background:#e2e8f0;border-radius:2px"><div style="width:60%;height:100%;background:#a855f7;border-radius:2px"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary Stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="stat-card text-center">
+        <div class="fw-800 fs-4 text-success">98</div>
+        <div class="stat-label">Active Vendors</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card text-center">
+        <div class="fw-800 fs-4 text-warning">12</div>
+        <div class="stat-label">Pending Reviews</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card text-center">
+        <div class="fw-800 fs-4 text-primary">99.9%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card text-center">
+        <div class="fw-800 fs-4 text-danger">4</div>
+        <div class="stat-label">Open Tickets</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Recent Orders Table -->
+    <div class="col-lg-8" id="orders">
+      <div class="dash-card">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-shopping-cart me-2 text-primary"></i>Recent Orders</span>
+          <div class="d-flex gap-2">
+            <input type="text" class="form-control form-control-sm" placeholder="Search orders..." style="width:160px" id="adminOrderSearch">
+            <button class="btn btn-sm btn-primary" onclick="showToast('Exported to CSV!','success')"><i class="fas fa-download me-1"></i>Export</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0" id="ordersTable">
+            <thead style="background:#f8faff">
+              <tr>
+                <th>Order ID</th><th>Customer</th><th>Software</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrderRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Software + Quick Actions -->
+    <div class="col-lg-4">
+      <!-- Top Selling -->
+      <div class="dash-card mb-4">
+        <div class="dash-card-header"><i class="fas fa-fire me-2 text-danger"></i>Top Selling Software</div>
+        <div class="p-3" id="topSelling"></div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dash-card">
+        <div class="dash-card-header"><i class="fas fa-bolt me-2 text-warning"></i>Quick Actions</div>
+        <div class="p-3 d-grid gap-2">
+          <button class="btn btn-sm btn-outline-primary text-start" onclick="showToast('Add software form opened','info')"><i class="fas fa-plus me-2"></i>Add New Software</button>
+          <button class="btn btn-sm btn-outline-success text-start" onclick="showToast('User list exported!','success')"><i class="fas fa-users me-2"></i>Export Users</button>
+          <button class="btn btn-sm btn-outline-warning text-start" onclick="showToast('Report generating...','info')"><i class="fas fa-chart-bar me-2"></i>Generate Report</button>
+          <button class="btn btn-sm btn-outline-danger text-start" onclick="showToast('3 flagged reviews found','error')"><i class="fas fa-flag me-2"></i>Review Flags</button>
+          <a href="products.html" class="btn btn-sm btn-outline-secondary text-start"><i class="fas fa-store me-2"></i>View Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="col-12" id="users">
+      <div class="dash-card">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-users me-2 text-primary"></i>Recent Users</span>
+          <button class="btn btn-sm btn-outline-primary" onclick="showToast('User invite sent!','success')"><i class="fas fa-user-plus me-1"></i>Add User</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead style="background:#f8faff">
+              <tr><th>Name</th><th>Email</th><th>Joined</th><th>Orders</th><th>Spent</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+const adminOrders = [
+  { id:'#SM-10072', customer:'Emily Ross', software:'DevKit Pro', amount:'$49.99', date:'May 1, 2025', status:'Completed' },
+  { id:'#SM-10071', customer:'James Park', software:'AIWriter X', amount:'$19.99', date:'Apr 30, 2025', status:'Completed' },
+  { id:'#SM-10070', customer:'Anna White', software:'SecureShield Pro', amount:'$29.99', date:'Apr 30, 2025', status:'Pending' },
+  { id:'#SM-10069', customer:'Tom Chen', software:'DesignFlow Studio', amount:'$59.99', date:'Apr 29, 2025', status:'Completed' },
+  { id:'#SM-10068', customer:'Sara Kim', software:'VaultPass', amount:'$9.99', date:'Apr 29, 2025', status:'Refunded' },
+  { id:'#SM-10067', customer:'Mike Brown', software:'NetGuard VPN', amount:'$11.99', date:'Apr 28, 2025', status:'Completed' },
+];
+
+const topSoftware = [
+  { icon:'⚙️', name:'DevKit Pro', sales:312, pct:85 },
+  { icon:'🛡️', name:'SecureShield Pro', sales:287, pct:78 },
+  { icon:'🤖', name:'AIWriter X', sales:241, pct:65 },
+  { icon:'🎨', name:'DesignFlow Studio', sales:198, pct:54 },
+  { icon:'⚡', name:'CleanBoost Ultra', sales:175, pct:47 },
+];
+
+const adminUsers = [
+  { name:'Alex Johnson', email:'alex@example.com', joined:'Jan 5, 2025', orders:8, spent:'$189', status:'Active' },
+  { name:'Sarah Miller', email:'sarah@example.com', joined:'Feb 12, 2025', orders:5, spent:'$124', status:'Active' },
+  { name:'Robert Chen', email:'robert@example.com', joined:'Mar 3, 2025', orders:3, spent:'$79', status:'Active' },
+  { name:'Emily Ross', email:'emily@example.com', joined:'Mar 18, 2025', orders:12, spent:'$342', status:'Active' },
+  { name:'Tom Black', email:'tom@example.com', joined:'Apr 2, 2025', orders:1, spent:'$29', status:'Suspended' },
+];
+
+const statusClass = { Completed:'bg-success', Pending:'bg-warning text-dark', Refunded:'bg-danger' };
+
+document.getElementById('adminOrderRows').innerHTML = adminOrders.map(o => `
+  <tr>
+    <td class="fw-600 text-primary">${o.id}</td>
+    <td>${o.customer}</td>
+    <td>${o.software}</td>
+    <td class="fw-700">${o.amount}</td>
+    <td class="text-muted">${o.date}</td>
+    <td><span class="badge ${statusClass[o.status]}">${o.status}</span></td>
+    <td>
+      <button class="btn btn-xs btn-outline-primary btn-sm py-0 px-2" onclick="showToast('Order details opened','info')"><i class="fas fa-eye"></i></button>
+    </td>
+  </tr>`).join('');
+
+document.getElementById('topSelling').innerHTML = topSoftware.map(s => `
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <span style="font-size:1.4rem">${s.icon}</span>
+    <div class="flex-grow-1">
+      <div class="d-flex justify-content-between small mb-1"><span class="fw-600">${s.name}</span><span class="text-muted">${s.sales} sales</span></div>
+      <div style="height:5px;background:#e2e8f0;border-radius:3px"><div style="width:${s.pct}%;height:100%;background:var(--primary);border-radius:3px"></div></div>
+    </div>
+  </div>`).join('');
+
+document.getElementById('usersTableBody').innerHTML = adminUsers.map(u => `
+  <tr>
+    <td class="fw-600">${u.name}</td>
+    <td class="text-muted">${u.email}</td>
+    <td class="text-muted">${u.joined}</td>
+    <td>${u.orders}</td>
+    <td class="fw-600">${u.spent}</td>
+    <td><span class="badge ${u.status==='Active'?'bg-success':'bg-danger'}">${u.status}</span></td>
+    <td>
+      <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="showToast('User details opened','info')"><i class="fas fa-eye"></i></button>
+      <button class="btn btn-sm btn-outline-danger py-0 px-2 ms-1" onclick="showToast('User suspended','error')"><i class="fas fa-ban"></i></button>
+    </td>
+  </tr>`).join('');
+
+// Search filter for orders
+document.getElementById('adminOrderSearch').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#adminOrderRows tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>

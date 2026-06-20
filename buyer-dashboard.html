@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buyer Dashboard – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">Soft<span style="color:#60a5fa">Mart</span></div>
+  <nav class="sidebar-nav mt-2">
+    <a href="#overview" class="active"><i class="fas fa-home"></i>Overview</a>
+    <a href="#purchases"><i class="fas fa-box-open"></i>My Software</a>
+    <a href="#wishlist"><i class="fas fa-heart"></i>Wishlist</a>
+    <a href="#orders"><i class="fas fa-receipt"></i>Orders</a>
+    <a href="#licenses"><i class="fas fa-key"></i>Licenses</a>
+    <a href="#reviews"><i class="fas fa-star"></i>My Reviews</a>
+    <a href="#profile"><i class="fas fa-user-circle"></i>Profile</a>
+    <hr style="border-color:#1e293b;margin:10px 24px">
+    <a href="products.html"><i class="fas fa-store"></i>Browse Store</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i>Cart</a>
+    <a href="#" onclick="logout()" style="color:#ef4444"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </nav>
+</aside>
+
+<!-- Main -->
+<div class="main-content">
+
+  <!-- Topbar -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-sm btn-outline-secondary d-md-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <div>
+        <h4 class="fw-800 mb-0">Buyer Dashboard</h4>
+        <p class="text-muted small mb-0">Welcome back, <strong id="topbarName">John Doe</strong> 👋</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="products.html" class="btn btn-primary btn-sm"><i class="fas fa-shopping-bag me-1"></i>Shop Now</a>
+      <a href="cart.html" class="btn btn-outline-primary btn-sm position-relative">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="badge bg-danger rounded-pill cart-count position-absolute" style="top:-6px;right:-6px;display:none;font-size:10px"></span>
+      </a>
+      <!-- Avatar → goes to profile section -->
+      <a href="#profile" title="View My Profile"
+         style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer"
+         id="topbarAvatar">J</a>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="row g-3 mb-4" id="overview">
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="fas fa-box-open"></i></div>
+          <span class="badge bg-success-subtle text-success small">+2 new</span>
+        </div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Purchased Software</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon" style="background:#f0fdf4;color:#22c55e"><i class="fas fa-key"></i></div>
+          <span class="badge bg-primary-subtle text-primary small">All Active</span>
+        </div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Active Licenses</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon" style="background:#fef9c3;color:#ca8a04"><i class="fas fa-receipt"></i></div>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon" style="background:#fdf2f8;color:#a855f7"><i class="fas fa-dollar-sign"></i></div>
+        </div>
+        <div class="stat-value">$284</div>
+        <div class="stat-label">Total Spent</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Purchased Software -->
+    <div class="col-lg-8" id="purchases">
+      <div class="dash-card mb-4">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-box-open me-2 text-primary"></i>My Purchased Software</span>
+          <input type="text" class="form-control form-control-sm" style="width:160px" placeholder="Search..." id="purchaseSearch">
+        </div>
+        <div class="p-3" id="purchasedList"></div>
+      </div>
+
+      <!-- Order History -->
+      <div class="dash-card" id="orders">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-receipt me-2 text-primary"></i>Order History</span>
+          <button class="btn btn-sm btn-outline-primary" onclick="showToast('Orders exported!','success')"><i class="fas fa-download me-1"></i>Export</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead style="background:#f8faff">
+              <tr><th>Order ID</th><th>Software</th><th>Date</th><th>Amount</th><th>Status</th><th>Invoice</th></tr>
+            </thead>
+            <tbody id="orderRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-lg-4">
+
+      <!-- Profile Card -->
+      <div class="dash-card mb-4" id="profile">
+        <div class="dash-card-header"><i class="fas fa-user-circle me-2 text-primary"></i>My Profile</div>
+        <div class="p-4 text-center">
+          <div class="reviewer-avatar mx-auto mb-3" style="width:72px;height:72px;font-size:1.8rem" id="profileAvatar">J</div>
+          <h5 class="fw-700 mb-1" id="profileName">John Doe</h5>
+          <p class="text-muted small mb-2" id="profileEmail">john.doe@example.com</p>
+          <span class="badge bg-primary mb-3">Pro Buyer</span>
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">
+              <i class="fas fa-edit me-1"></i>Edit Profile
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" onclick="showToast('Password reset email sent!','info')">
+              <i class="fas fa-lock me-1"></i>Change Password
+            </button>
+          </div>
+        </div>
+        <div class="px-4 pb-3 border-top pt-3">
+          <div class="d-flex justify-content-between small text-muted mb-1"><span>Member since</span><span class="fw-600 text-dark">Jan 2024</span></div>
+          <div class="d-flex justify-content-between small text-muted"><span>Status</span><span class="badge bg-success">Verified</span></div>
+        </div>
+      </div>
+
+      <!-- Wishlist -->
+      <div class="dash-card mb-4" id="wishlist">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-heart me-2 text-danger"></i>Wishlist</span>
+          <a href="products.html" class="btn btn-sm btn-outline-primary">Browse</a>
+        </div>
+        <div class="p-3" id="wishlistItems"></div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dash-card mb-4">
+        <div class="dash-card-header"><i class="fas fa-bolt me-2 text-warning"></i>Quick Actions</div>
+        <div class="p-3 d-grid gap-2">
+          <a href="products.html" class="btn btn-sm btn-outline-primary text-start"><i class="fas fa-search me-2"></i>Browse Software</a>
+          <a href="cart.html" class="btn btn-sm btn-outline-primary text-start"><i class="fas fa-shopping-cart me-2"></i>View Cart</a>
+          <button class="btn btn-sm btn-outline-secondary text-start" onclick="showToast('Support ticket created!','success')"><i class="fas fa-headset me-2"></i>Contact Support</button>
+          <button class="btn btn-sm btn-outline-secondary text-start" onclick="showToast('Invoices downloaded!','success')"><i class="fas fa-file-pdf me-2"></i>Download All Invoices</button>
+        </div>
+      </div>
+
+      <!-- Spending Summary -->
+      <div class="dash-card" id="licenses">
+        <div class="dash-card-header"><i class="fas fa-chart-pie me-2 text-primary"></i>Spending by Category</div>
+        <div class="p-3" id="spendingChart"></div>
+      </div>
+    </div>
+
+    <!-- Licenses Section -->
+    <div class="col-12">
+      <div class="dash-card">
+        <div class="dash-card-header"><i class="fas fa-key me-2 text-primary"></i>My License Keys</div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead style="background:#f8faff">
+              <tr><th>Software</th><th>License Key</th><th>Activated</th><th>Expires</th><th>Devices</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="licenseRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Reviews -->
+    <div class="col-12" id="reviews">
+      <div class="dash-card">
+        <div class="dash-card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-star me-2 text-warning"></i>My Reviews</span>
+          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal"><i class="fas fa-plus me-1"></i>Write Review</button>
+        </div>
+        <div class="p-3 row g-3" id="reviewList"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0"><h5 class="modal-title fw-700">Edit Profile</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-6"><label class="form-label fw-600">First Name</label><input type="text" class="form-control" value="John"></div>
+          <div class="col-6"><label class="form-label fw-600">Last Name</label><input type="text" class="form-control" value="Doe"></div>
+          <div class="col-12"><label class="form-label fw-600">Email</label><input type="email" class="form-control" value="john.doe@example.com"></div>
+          <div class="col-12"><label class="form-label fw-600">Phone</label><input type="tel" class="form-control" placeholder="+1 234 567 8900"></div>
+          <div class="col-12"><label class="form-label fw-600">Country</label>
+            <select class="form-select"><option>United States</option><option>United Kingdom</option><option>Canada</option></select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal" onclick="showToast('Profile updated!','success')">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Write Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0"><h5 class="modal-title fw-700">Write a Review</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label fw-600">Select Software</label>
+          <select class="form-select">
+            <option>SecureShield Pro</option><option>DevKit Pro</option><option>AIWriter X</option><option>CleanBoost Ultra</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-600">Rating</label>
+          <div class="d-flex gap-2 fs-4" id="starPicker" style="cursor:pointer;color:#e2e8f0">
+            <i class="fas fa-star" data-v="1"></i><i class="fas fa-star" data-v="2"></i>
+            <i class="fas fa-star" data-v="3"></i><i class="fas fa-star" data-v="4"></i>
+            <i class="fas fa-star" data-v="5"></i>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-600">Review</label>
+          <textarea class="form-control" rows="4" placeholder="Share your experience..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal" onclick="showToast('Review submitted! Thank you 🙏','success')">Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+function logout() {
+  localStorage.removeItem('sm_user');
+  showToast('👋 Logged out successfully!', 'info');
+  setTimeout(() => { location.href = 'index.html'; }, 1000);
+}
+
+// ── Load real user data from localStorage ─────────────────────────────────────
+(function loadUser() {
+  const raw = localStorage.getItem('sm_user');
+  if (!raw) { location.href = 'login.html'; return; }
+  const u = JSON.parse(raw);
+  const initial = u.name ? u.name[0].toUpperCase() : 'U';
+  // Topbar
+  document.getElementById('topbarName').textContent   = u.name  || 'User';
+  document.getElementById('topbarAvatar').textContent = initial;
+  // Profile card
+  document.getElementById('profileAvatar').textContent = initial;
+  document.getElementById('profileName').textContent   = u.name  || 'User';
+  document.getElementById('profileEmail').textContent  = u.email || '';
+  // Edit modal pre-fill
+  const nameParts = (u.name || '').split(' ');
+  const editModal = document.getElementById('editModal');
+  if (editModal) {
+    const inputs = editModal.querySelectorAll('input');
+    if (inputs[0]) inputs[0].value = nameParts[0] || '';
+    if (inputs[1]) inputs[1].value = nameParts.slice(1).join(' ') || '';
+    if (inputs[2]) inputs[2].value = u.email || '';
+  }
+  // Sidebar profile link highlight on hash
+  if (location.hash === '#profile') {
+    setTimeout(() => { document.getElementById('profile')?.scrollIntoView({ behavior: 'smooth' }); }, 200);
+  }
+})();
+// ── Data ──────────────────────────────────────────────────────────────────────
+const purchased = [
+  { id:1,  icon:'🛡️', name:'SecureShield Pro',  cat:'Antivirus',       price:29.99, key:'SSH-PRO-8X2K-4M9Z', date:'2025-01-15', expires:'2026-01-15', devices:3 },
+  { id:3,  icon:'⚙️', name:'DevKit Pro',         cat:'Developer Tools', price:49.99, key:'DKP-9A3F-7B1C-2E5D', date:'2025-02-20', expires:'2026-02-20', devices:2 },
+  { id:5,  icon:'🤖', name:'AIWriter X',          cat:'AI Tools',        price:19.99, key:'AIW-5Z9K-3R7P-1L4Q', date:'2025-03-10', expires:'2026-03-10', devices:1 },
+  { id:6,  icon:'⚡', name:'CleanBoost Ultra',    cat:'Utility',         price:14.99, key:'CBU-2M6X-8N1V-5T3W', date:'2025-04-05', expires:'2026-04-05', devices:3 },
+  { id:8,  icon:'🔐', name:'VaultPass',           cat:'Utility',         price:9.99,  key:'VPK-7H4Q-2N8L-6P1X', date:'2025-04-20', expires:'2026-04-20', devices:5 },
+];
+
+const orders = [
+  { id:'#SM-10041', software:'SecureShield Pro', date:'Jan 15, 2025', amount:'$29.99', status:'Completed' },
+  { id:'#SM-10038', software:'DevKit Pro',        date:'Feb 20, 2025', amount:'$49.99', status:'Completed' },
+  { id:'#SM-10055', software:'AIWriter X',         date:'Mar 10, 2025', amount:'$19.99', status:'Completed' },
+  { id:'#SM-10061', software:'CleanBoost Ultra',  date:'Apr 5, 2025',  amount:'$14.99', status:'Completed' },
+  { id:'#SM-10072', software:'VaultPass',          date:'Apr 20, 2025', amount:'$9.99',  status:'Pending'   },
+  { id:'#SM-10080', software:'NetGuard VPN',       date:'May 1, 2025',  amount:'$11.99', status:'Refunded'  },
+];
+
+const wishlist = [
+  { icon:'🎨', name:'DesignFlow Studio', price:'$59.99', oldPrice:'$89.99', cat:'Design' },
+  { icon:'💡', name:'CodeAssist AI',     price:'$34.99', oldPrice:'$54.99', cat:'AI Tools' },
+  { icon:'🌐', name:'NetGuard VPN',      price:'$11.99', oldPrice:'$22.99', cat:'Utility' },
+];
+
+const myReviews = [
+  { icon:'🛡️', name:'SecureShield Pro', rating:5, date:'Feb 1, 2025',  text:'Excellent protection! No viruses since I installed it. Highly recommend.' },
+  { icon:'⚙️', name:'DevKit Pro',        rating:5, date:'Mar 5, 2025',  text:'Best developer toolkit I have ever used. Worth every penny.' },
+  { icon:'🤖', name:'AIWriter X',         rating:4, date:'Mar 20, 2025', text:'Great AI writing tool. Saves me hours every week.' },
+];
+
+const spending = [
+  { cat:'Developer Tools', amount:49.99, color:'#3b82f6', pct:80 },
+  { cat:'Antivirus',        amount:29.99, color:'#22c55e', pct:48 },
+  { cat:'AI Tools',         amount:19.99, color:'#a855f7', pct:32 },
+  { cat:'Utility',          amount:24.98, color:'#f59e0b', pct:40 },
+];
+
+// ── Render Purchases ──────────────────────────────────────────────────────────
+function renderPurchases(list) {
+  document.getElementById('purchasedList').innerHTML = list.length ? list.map(p => `
+    <div class="d-flex align-items-center gap-3 p-3 rounded-3 mb-2 purchase-row" style="border:1px solid #e2e8f0;transition:all .2s" onmouseover="this.style.borderColor='#bfdbfe'" onmouseout="this.style.borderColor='#e2e8f0'">
+      <div style="font-size:2rem;width:52px;height:52px;background:#eff6ff;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${p.icon}</div>
+      <div class="flex-grow-1 min-w-0">
+        <div class="fw-700">${p.name}</div>
+        <span class="badge" style="background:#eff6ff;color:#3b82f6;font-size:.72rem">${p.cat}</span>
+        <div class="license-key mt-1 text-truncate">${p.key}</div>
+        <div class="text-muted small mt-1"><i class="fas fa-calendar me-1"></i>Expires: ${p.expires}</div>
+      </div>
+      <div class="d-flex flex-column gap-2 flex-shrink-0">
+        <button class="btn btn-sm btn-primary" onclick="showToast('⬇️ Downloading ${p.name}...','success')"><i class="fas fa-download me-1"></i>Download</button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="navigator.clipboard.writeText('${p.key}').then(()=>showToast('✅ Key copied!','success'))"><i class="fas fa-copy me-1"></i>Copy Key</button>
+      </div>
+    </div>`).join('') : '<p class="text-muted text-center py-3">No results found.</p>';
+}
+renderPurchases(purchased);
+
+// Search filter
+document.getElementById('purchaseSearch').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  renderPurchases(purchased.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)));
+});
+
+// ── Order Rows ────────────────────────────────────────────────────────────────
+const statusBadge = { Completed:'bg-success', Pending:'bg-warning text-dark', Refunded:'bg-danger' };
+document.getElementById('orderRows').innerHTML = orders.map(o => `
+  <tr>
+    <td class="fw-600 text-primary">${o.id}</td>
+    <td>${o.software}</td>
+    <td class="text-muted">${o.date}</td>
+    <td class="fw-700">${o.amount}</td>
+    <td><span class="badge ${statusBadge[o.status]}">${o.status}</span></td>
+    <td><button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="showToast('Invoice downloaded!','info')"><i class="fas fa-file-pdf"></i></button></td>
+  </tr>`).join('');
+
+// ── License Rows ──────────────────────────────────────────────────────────────
+document.getElementById('licenseRows').innerHTML = purchased.map(p => `
+  <tr>
+    <td><span style="font-size:1.2rem">${p.icon}</span> <span class="fw-600 ms-1">${p.name}</span></td>
+    <td><code class="text-primary">${p.key}</code></td>
+    <td class="text-muted">${p.date}</td>
+    <td class="text-muted">${p.expires}</td>
+    <td><span class="badge bg-light text-dark border">${p.devices} / 3</span></td>
+    <td><span class="badge bg-success">Active</span></td>
+    <td>
+      <button class="btn btn-sm btn-outline-secondary py-0 px-2 me-1" onclick="navigator.clipboard.writeText('${p.key}').then(()=>showToast('Key copied!','success'))"><i class="fas fa-copy"></i></button>
+      <button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="showToast('License deactivated','error')"><i class="fas fa-times"></i></button>
+    </td>
+  </tr>`).join('');
+
+// ── Wishlist ──────────────────────────────────────────────────────────────────
+document.getElementById('wishlistItems').innerHTML = wishlist.map(w => `
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <div style="font-size:1.8rem;width:44px;height:44px;background:#eff6ff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${w.icon}</div>
+    <div class="flex-grow-1">
+      <div class="fw-600 small">${w.name}</div>
+      <div><span class="text-primary fw-700 small">${w.price}</span> <span class="text-muted small text-decoration-line-through ms-1">${w.oldPrice}</span></div>
+    </div>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-xs btn-primary btn-sm py-0 px-2" onclick="addToCart(${wishlist.indexOf(w)+2})" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
+      <button class="btn btn-xs btn-outline-danger btn-sm py-0 px-2" onclick="this.closest('.d-flex').remove();showToast('Removed from wishlist','info')" title="Remove"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>`).join('');
+
+// ── Spending Chart ────────────────────────────────────────────────────────────
+document.getElementById('spendingChart').innerHTML = spending.map(s => `
+  <div class="mb-3">
+    <div class="d-flex justify-content-between small mb-1">
+      <span class="fw-600">${s.cat}</span><span class="text-muted">$${s.amount}</span>
+    </div>
+    <div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden">
+      <div style="width:${s.pct}%;height:100%;background:${s.color};border-radius:4px;transition:width 1s ease"></div>
+    </div>
+  </div>`).join('');
+
+// ── Reviews ───────────────────────────────────────────────────────────────────
+document.getElementById('reviewList').innerHTML = myReviews.map(r => `
+  <div class="col-md-4">
+    <div class="review-card h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <span style="font-size:1.6rem">${r.icon}</span>
+        <div><div class="fw-700 small">${r.name}</div><div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div></div>
+        <span class="text-muted small ms-auto">${r.date}</span>
+      </div>
+      <p class="small text-muted mb-2">"${r.text}"</p>
+      <div class="d-flex gap-2">
+        <button class="btn btn-xs btn-outline-primary btn-sm py-0 px-2" onclick="showToast('Edit review opened','info')"><i class="fas fa-edit me-1"></i>Edit</button>
+        <button class="btn btn-xs btn-outline-danger btn-sm py-0 px-2" onclick="this.closest('.col-md-4').remove();showToast('Review deleted','error')"><i class="fas fa-trash me-1"></i>Delete</button>
+      </div>
+    </div>
+  </div>`).join('');
+
+// ── Star Picker in Modal ──────────────────────────────────────────────────────
+document.querySelectorAll('#starPicker i').forEach(star => {
+  star.addEventListener('mouseover', function() {
+    const v = +this.dataset.v;
+    document.querySelectorAll('#starPicker i').forEach((s,i) => s.style.color = i < v ? '#f59e0b' : '#e2e8f0');
+  });
+  star.addEventListener('click', function() {
+    this.closest('#starPicker').dataset.rating = this.dataset.v;
+  });
+  star.addEventListener('mouseout', () => {
+    const sel = +document.getElementById('starPicker').dataset.rating || 0;
+    document.querySelectorAll('#starPicker i').forEach((s,i) => s.style.color = i < sel ? '#f59e0b' : '#e2e8f0');
+  });
+});
+</script>
+</body>
+</html>

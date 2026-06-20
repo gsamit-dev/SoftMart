@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout – SoftMart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Soft<span>Mart</span></a>
+    <div class="d-flex align-items-center gap-3 ms-auto">
+      <button class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="cart.html" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-1"></i>Back to Cart</a>
+      <div class="nav-user-menu d-flex align-items-center gap-2" style="display:none!important">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary btn-sm dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700" class="nav-user-avatar">U</div>
+            <span class="nav-user-name">User</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="buyer-dashboard.html"><i class="fas fa-tachometer-alt me-2 text-primary"></i>My Dashboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Progress Steps -->
+<div class="bg-white border-bottom py-3">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center gap-2 gap-md-4 flex-wrap">
+      <div class="d-flex align-items-center gap-2 text-muted"><div style="width:28px;height:28px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#64748b">1</div><span class="d-none d-md-block small">Cart</span></div>
+      <i class="fas fa-chevron-right text-muted small"></i>
+      <div class="d-flex align-items-center gap-2 text-primary fw-600"><div style="width:28px;height:28px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff">2</div><span class="d-none d-md-block small">Checkout</span></div>
+      <i class="fas fa-chevron-right text-muted small"></i>
+      <div class="d-flex align-items-center gap-2 text-muted"><div style="width:28px;height:28px;border-radius:50%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#64748b">3</div><span class="d-none d-md-block small">Confirmation</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Customer Info -->
+      <div class="col-lg-8">
+        <form class="needs-validate" novalidate data-redirect="buyer-dashboard.html">
+
+          <!-- Contact -->
+          <div class="checkout-card mb-4">
+            <h5 class="fw-700 mb-4"><i class="fas fa-user me-2 text-primary"></i>Customer Information</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-600">First Name</label>
+                <input type="text" class="form-control" placeholder="John" required>
+                <div class="invalid-feedback">Required</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Last Name</label>
+                <input type="text" class="form-control" placeholder="Doe" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Email</label>
+                <input type="email" class="form-control" placeholder="john@example.com" required>
+                <div class="invalid-feedback">Valid email required</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Phone</label>
+                <input type="tel" class="form-control" placeholder="+1 234 567 8900">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-600">Country</label>
+                <select class="form-select" required>
+                  <option value="">Select country...</option>
+                  <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                  <option>Australia</option><option>Germany</option><option>France</option><option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="checkout-card mb-4">
+            <h5 class="fw-700 mb-4"><i class="fas fa-credit-card me-2 text-primary"></i>Payment Method</h5>
+            <div class="row g-3 mb-4">
+              <div class="col-4"><div class="payment-option active text-center"><i class="fas fa-credit-card fs-4 text-primary d-block mb-1"></i><small class="fw-600">Credit Card</small></div></div>
+              <div class="col-4"><div class="payment-option text-center"><i class="fab fa-paypal fs-4 text-primary d-block mb-1"></i><small class="fw-600">PayPal</small></div></div>
+              <div class="col-4"><div class="payment-option text-center"><i class="fab fa-bitcoin fs-4 text-warning d-block mb-1"></i><small class="fw-600">Crypto</small></div></div>
+            </div>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label fw-600">Card Number</label>
+                <input type="text" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">Expiry Date</label>
+                <input type="text" class="form-control" placeholder="MM/YY" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-600">CVV</label>
+                <input type="text" class="form-control" placeholder="123" maxlength="4" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-600">Cardholder Name</label>
+                <input type="text" class="form-control" placeholder="John Doe" required>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg w-100 btn-pulse">
+            <i class="fas fa-lock me-2"></i>Confirm Purchase
+          </button>
+          <p class="text-center text-muted small mt-2"><i class="fas fa-shield-alt me-1"></i>256-bit SSL encrypted. Your data is safe.</p>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="checkout-card sticky-top" style="top:90px">
+          <h5 class="fw-700 mb-4"><i class="fas fa-receipt me-2 text-primary"></i>Order Summary</h5>
+          <div id="checkoutOrderItems"></div>
+          <div class="mt-3 d-flex flex-column gap-2">
+            <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-lock text-success"></i>Secure Payment</div>
+            <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-download text-success"></i>Instant Download</div>
+            <div class="d-flex align-items-center gap-2 text-muted small"><i class="fas fa-undo text-success"></i>30-Day Refund Policy</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+function logout(){localStorage.removeItem('sm_user');location.href='index.html';}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!localStorage.getItem('sm_user')){ localStorage.setItem('sm_login_redirect','checkout.html'); location.href='login.html'; return; }
+  const u=localStorage.getItem('sm_user');
+  if(u){
+    const parsed=JSON.parse(u);
+    document.querySelectorAll('.nav-user-avatar').forEach(el=>el.textContent=parsed.name[0].toUpperCase());
+    document.querySelectorAll('.nav-user-name').forEach(el=>el.textContent=parsed.name.split(' ')[0]);
+    // Pre-fill customer info
+    const emailInput=document.querySelector('input[type=email]');
+    if(emailInput) emailInput.value=parsed.email;
+  }
+});
+</script>
+</body>
+</html>
